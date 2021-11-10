@@ -11,9 +11,9 @@ from torch.nn.parameter import Parameter
 import time
 
 from dataloader import MyDataLoader
-from DRN import MyModel
+from FRSCNN import MyModel
 
-name = 'DRN'
+name = 'FRSCNN'
 
 
 def calc_psnr(img1, img2):
@@ -104,11 +104,12 @@ def main():
 		test_loss = test(model, test_loader, loss_func, epoch, device)
 		scheduler.step()
 
-		if not os.path.isdir('checkpoints/'):
-			os.mkdir('checkpoints/')
+		if test_loss < best_loss:
+			if not os.path.isdir('checkpoints/'):
+				os.mkdir('checkpoints/')
 
-		torch.save(model.state_dict(), './checkpoints/'+str(name)+'_Model')
-		best_loss = test_loss
+			torch.save(model.state_dict(), './checkpoints/'+str(name)+'_Model')
+			best_loss = test_loss
 
 if __name__ == '__main__':
   main()
