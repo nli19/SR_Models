@@ -56,42 +56,42 @@ class MyModel(nn.Module):
         # Deconvolution
         self.deconv = nn.ConvTranspose2d(in_channels=64, out_channels=3, kernel_size=9, stride=upscale_factor,
                                          padding=4, output_padding=upscale_factor - 1)
-        self._initialize_weights()
+        # self._initialize_weights()
 
     # The filter weights of each layer are initialized by drawing randomly from
     # a Gaussian distribution with a zero mean and a standard deviation
     # of 0.001 (and a deviation of 0).
-    def _initialize_weights(self):
-        for m in self.features:
-            if isinstance(m, nn.Conv2d):
-                nn.init.normal_(m.weight.data,
-                                mean=0.0,
-                                std=math.sqrt(2 / (m.out_channels * m.weight.data[0][0].numel())))
-                nn.init.zeros_(m.bias.data)
+    # def _initialize_weights(self):
+    #     for m in self.features:
+    #         if isinstance(m, nn.Conv2d):
+    #             nn.init.normal_(m.weight.data,
+    #                             mean=0.0,
+    #                             std=math.sqrt(2 / (m.out_channels * m.weight.data[0][0].numel())))
+    #             nn.init.zeros_(m.bias.data)
 
-        for m in self.shrink:
-            if isinstance(m, nn.Conv2d):
-                nn.init.normal_(m.weight.data,
-                                mean=0.0,
-                                std=math.sqrt(2 / (m.out_channels * m.weight.data[0][0].numel())))
-                nn.init.zeros_(m.bias.data)
+    #     for m in self.shrink:
+    #         if isinstance(m, nn.Conv2d):
+    #             nn.init.normal_(m.weight.data,
+    #                             mean=0.0,
+    #                             std=math.sqrt(2 / (m.out_channels * m.weight.data[0][0].numel())))
+    #             nn.init.zeros_(m.bias.data)
 
-        for m in self.map:
-            if isinstance(m, nn.Conv2d):
-                nn.init.normal_(m.weight.data,
-                                mean=0.0,
-                                std=math.sqrt(2 / (m.out_channels * m.weight.data[0][0].numel())))
-                nn.init.zeros_(m.bias.data)
+    #     for m in self.map:
+    #         if isinstance(m, nn.Conv2d):
+    #             nn.init.normal_(m.weight.data,
+    #                             mean=0.0,
+    #                             std=math.sqrt(2 / (m.out_channels * m.weight.data[0][0].numel())))
+    #             nn.init.zeros_(m.bias.data)
 
-        for m in self.expand:
-            if isinstance(m, nn.Conv2d):
-                nn.init.normal_(m.weight.data,
-                                mean=0.0,
-                                std=math.sqrt(2 / (m.out_channels * m.weight.data[0][0].numel())))
-                nn.init.zeros_(m.bias.data)
+    #     for m in self.expand:
+    #         if isinstance(m, nn.Conv2d):
+    #             nn.init.normal_(m.weight.data,
+    #                             mean=0.0,
+    #                             std=math.sqrt(2 / (m.out_channels * m.weight.data[0][0].numel())))
+    #             nn.init.zeros_(m.bias.data)
 
-        nn.init.normal_(self.deconv.weight.data, mean=0.0, std=0.001)
-        nn.init.zeros_(self.deconv.bias.data)
+    #     nn.init.normal_(self.deconv.weight.data, mean=0.0, std=0.001)
+    #     nn.init.zeros_(self.deconv.bias.data)
 
     def forward(self, x):
         out = self.features(x)

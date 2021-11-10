@@ -19,17 +19,17 @@ class MyModel(nn.Module):
             nn.PixelShuffle(scale_factor)
         )
 
-        self._initialize_weights()
+        # self._initialize_weights()
 
-    def _initialize_weights(self):
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                if m.in_channels == 32:
-                    nn.init.normal_(m.weight.data, mean=0.0, std=0.001)
-                    nn.init.zeros_(m.bias.data)
-                else:
-                    nn.init.normal_(m.weight.data, mean=0.0, std=math.sqrt(2/(m.out_channels*m.weight.data[0][0].numel())))
-                    nn.init.zeros_(m.bias.data)
+    # def _initialize_weights(self):
+    #     for m in self.modules():
+    #         if isinstance(m, nn.Conv2d):
+    #             if m.in_channels == 32:
+    #                 nn.init.normal_(m.weight.data, mean=0.0, std=0.001)
+    #                 nn.init.zeros_(m.bias.data)
+    #             else:
+    #                 nn.init.normal_(m.weight.data, mean=0.0, std=math.sqrt(2/(m.out_channels*m.weight.data[0][0].numel())))
+    #                 nn.init.zeros_(m.bias.data)
 
     def forward(self, x):
         x = self.first_part(x)
