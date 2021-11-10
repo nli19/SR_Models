@@ -16,15 +16,15 @@ class MyDataLoader(Dataset):
 		self.hr_list = sorted(glob(self.hr_file))
 		self.lr_list = sorted(glob(self.lr_file))
 	
-		# input 360 x 240 -> 1080 x 720
+		# input 480 x 270 -> 1920 x 1080
 		self.hr = []
 		self.lr = []
-		hr_patch_size = 120
-		lr_patch_size = 40
+		hr_patch_size = 192
+		lr_patch_size = 48
 		if self.partition == 'train':
 			for f in self.hr_list:
 				img = Image.open(f)
-				img = img.resize((1080, 720),resample=Image.BICUBIC)
+				img = img.resize((1920, 1080),resample=Image.BICUBIC)
 				img.load()
 				data = np.asarray(img, dtype='int32')
 				data = data/255.0
@@ -38,7 +38,7 @@ class MyDataLoader(Dataset):
 
 			for f in self.lr_list:
 				img = Image.open(f)
-				img = img.resize((360, 240),resample=Image.BICUBIC)
+				img = img.resize((480, 270),resample=Image.BICUBIC)
 				img.load()
 				data = np.asarray(img, dtype='int32')
 				data = data/255.0
@@ -51,8 +51,9 @@ class MyDataLoader(Dataset):
 
 		else:
 			for f in self.hr_list:
+				print(f)
 				img = Image.open(f)
-				img = img.resize((1080, 720),resample=Image.BICUBIC)
+				img = img.resize((1920, 1080),resample=Image.BICUBIC)
 				img.load()
 				data = np.asarray(img, dtype='int32')
 				data = data/255.0
@@ -64,15 +65,16 @@ class MyDataLoader(Dataset):
 
 			for f in self.lr_list:
 				img = Image.open(f)
-				img = img.resize((360, 240),resample=Image.BICUBIC)
+				img = img.resize((480, 270),resample=Image.BICUBIC)
 				img.load()
 				data = np.asarray(img, dtype='int32')
 				data = data/255.0
 				data = data.transpose(2, 1, 0)
 				# data = np.resize(data, (3, 510, 339))
-				# data = np.resize(data, (3, 2040, 1356))
+					# data = np.resize(data, (3, 2040, 1356))
 				self.lr.append(data)
 			self.lr = np.asarray(self.lr,dtype=np.float32)
+			print(self.lr)
 
 
 
@@ -86,8 +88,8 @@ class MyDataLoader(Dataset):
 
 ###test
 
-# testset = MyDataLoader('data/', 'test', in_ch = 3)
-# lr,hr = testset.__getitem__(1)
-# print(lr.shape)
-# print(hr.shape)
+testset = MyDataLoader('./testdada','test',  in_ch = 3)
+lr,hr = testset.__getitem__(1)
+print(lr.shape)
+print(hr.shape)
 		

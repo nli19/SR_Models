@@ -11,9 +11,9 @@ from torch.nn.parameter import Parameter
 import time
 
 from dataloader import MyDataLoader
-from FRSCNN import MyModel
+from FSRCNN import MyModel
 
-name = 'FRSCNN'
+name = 'FSRCNN'
 
 
 def calc_psnr(img1, img2):
@@ -84,8 +84,8 @@ def main():
 	trainset = MyDataLoader('traindata/', 'train', in_ch=3)
 	testset = MyDataLoader('testdata/', 'test', in_ch = 3)
 
-	train_loader = DataLoader(trainset, 1, shuffle = True)
-	test_loader = DataLoader(testset, 1, shuffle = True)
+	train_loader = DataLoader(trainset, 128, shuffle = True)
+	test_loader = DataLoader(testset, 128, shuffle = True)
 
 	model = MyModel().to(device)
 	print("{} paramerters in total".format(sum(x.numel() for x in model.parameters())))
