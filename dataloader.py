@@ -15,81 +15,59 @@ class MyDataLoader(Dataset):
 		self.lr_file = os.path.join(lr, '*.png')
 		self.hr_list = sorted(glob(self.hr_file))
 		self.lr_list = sorted(glob(self.lr_file))
-	
-		# input 480 x 270 -> 1920 x 1080
-		self.hr = []
-		self.lr = []
-		hr_patch_size = 192
-		lr_patch_size = 48
-		if self.partition == 'train':
-			for f in self.hr_list:
-				img = Image.open(f)
-				img = img.resize((1920, 1080),resample=Image.BICUBIC)
-				img.load()
-				data = np.asarray(img, dtype='int32')
-				data = data/255.0
-				data = data.transpose(2, 1, 0)
-				for i in range(data.shape[1]//hr_patch_size):
-					for j in range(data.shape[2]//hr_patch_size):
-						patch = data[:,hr_patch_size*i:hr_patch_size*(i+1),hr_patch_size*j:hr_patch_size*(j+1)]
-						self.hr.append(patch)
-
-			self.hr = np.asarray(self.hr, dtype=np.float32)
-
-			for f in self.lr_list:
-				img = Image.open(f)
-				img = img.resize((480, 270),resample=Image.BICUBIC)
-				img.load()
-				data = np.asarray(img, dtype='int32')
-				data = data/255.0
-				data = data.transpose(2, 1, 0)
-				for i in range(data.shape[1]//lr_patch_size):
-					for j in range(data.shape[2]//lr_patch_size):
-						patch = data[:,lr_patch_size*i:lr_patch_size*(i+1),lr_patch_size*j:lr_patch_size*(j+1)]
-						self.lr.append(patch)
-			self.lr = np.asarray(self.lr, dtype=np.float32)
-
-		else:
-			for f in self.hr_list:
-				print(f)
-				img = Image.open(f)
-				img = img.resize((1920, 1080),resample=Image.BICUBIC)
-				img.load()
-				data = np.asarray(img, dtype='int32')
-				data = data/255.0
-				data = data.transpose(2, 1, 0)
-				# print(data.shape)
-				# data = np.resize(data, (3, 2040, 1356))
-				self.hr.append(data)
-			self.hr = np.asarray(self.hr, dtype=np.float32)
-
-			for f in self.lr_list:
-				img = Image.open(f)
-				img = img.resize((480, 270),resample=Image.BICUBIC)
-				img.load()
-				data = np.asarray(img, dtype='int32')
-				data = data/255.0
-				data = data.transpose(2, 1, 0)
-				# data = np.resize(data, (3, 510, 339))
-					# data = np.resize(data, (3, 2040, 1356))
-				self.lr.append(data)
-			self.lr = np.asarray(self.lr,dtype=np.float32)
-			print(self.lr)
-
 
 
 	def __len__(self):
-		return len(self.hr)
+		return len(self.hr_list) * 50
 
 	def __getitem__(self,idx):
-		lr = self.lr[idx]
-		hr = self.hr[idx]
-		return lr, hr
+		# input 480 x 270 -> 1920 x 1080
+		img_idx = idx // 50
+		if img_idx == 0:
+			patch_idx = idx
+		else:
+			patch_idx = idx % img_idx
+
+		self.hr_patches = []
+		self.lr_patches = []
+		self.hr_img = self.hr_list[img_idx]
+		self.lr_img = self.lr_list[img_idx]
+
+		hr_patch_size = 192
+		lr_patch_size = 48
+		img = Image.open(self.hr_img)
+		img = img.resize((1920, 1080),resample=Image.BICUBIC)
+		img.load()
+		data = np.asarray(img, dtype='int32')
+		data = data/255.0
+		data = data.transpose(2, 1, 0)
+		for i in range(data.shape[1]//hr_patch_size):
+			for j in range(data.shape[2]//hr_patch_size):
+				patch = data[:,hr_patch_size*i:hr_patch_size*(i+1),hr_patch_size*j:hr_patch_size*(j+1)]
+				self.hr_patches.append(patch)
+
+		self.hr_patches = np.asarray(self.hr_patches, dtype=np.float32)
+
+		img = Image.open(self.lr_img)
+		img = img.resize((480, 270),resample=Image.BICUBIC)
+		img.load()
+		data = np.asarray(img, dtype='int32')
+		data = data/255.0
+		data = data.transpose(2, 1, 0)
+		for i in range(data.shape[1]//lr_patch_size):
+			for j in range(data.shape[2]//lr_patch_size):
+				patch = data[:,lr_patch_size*i:lr_patch_size*(i+1),lr_patch_size*j:lr_patch_size*(j+1)]
+				self.lr_patches.append(patch)
+		self.lr_patches = np.asarray(self.lr_patches, dtype=np.float32)
+	
+		lr_data = self.lr_patches[patch_idx]
+		hr_data = self.hr_patches[patch_idx]
+		return lr_data, hr_data
 
 ###test
 
-testset = MyDataLoader('./testdada','test',  in_ch = 3)
-lr,hr = testset.__getitem__(1)
-print(lr.shape)
-print(hr.shape)
+# testset = MyDataLoader('testdata','test',  in_ch = 3)
+# lr,hr = testset.__getitem__(20)
+# print(lr.shape)
+# print(hr.shape)
 		
