@@ -2,8 +2,9 @@ import numpy as np
 import os
 from torch.utils.data import Dataset, DataLoader
 from glob import glob
-from PIL import Image
-
+from PIL import Image,ImageFile
+import torch
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 class MyDataLoader(Dataset):
 	def __init__(self, data_dir, partition, in_ch=3):
@@ -62,7 +63,11 @@ class MyDataLoader(Dataset):
 	
 		lr_data = self.lr_patches[patch_idx]
 		hr_data = self.hr_patches[patch_idx]
+		lr_data = torch.from_numpy(lr_data)
+		hr_data = torch.from_numpy(hr_data)
 		return lr_data, hr_data
+
+
 
 ###test
 

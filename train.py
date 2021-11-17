@@ -11,9 +11,9 @@ from torch.nn.parameter import Parameter
 import time
 
 from dataloader import MyDataLoader
-from FSRCNN import MyModel
+from ESPCN import MyModel
 
-name = 'FSRCNN'
+name = 'ESPCN'
 
 
 def calc_psnr(img1, img2):
@@ -81,11 +81,11 @@ def main():
 	use_cuda = torch.cuda.is_available()
 	device = torch.device("cuda" if use_cuda else "cpu")
 	torch.manual_seed(0)
-	trainset = MyDataLoader('traindata/', 'train', in_ch=3)
-	testset = MyDataLoader('testdata/', 'test', in_ch = 3)
+	trainset = MyDataLoader('../traindata/', 'train', in_ch=3)
+	testset = MyDataLoader('../testdata/', 'test', in_ch = 3)
 
-	train_loader = DataLoader(trainset, 128, shuffle = True)
-	test_loader = DataLoader(testset, 128, shuffle = True)
+	train_loader = DataLoader(trainset, 512, shuffle = True,pin_memory=True,  num_workers=2)
+	test_loader = DataLoader(testset, 512, shuffle = True, pin_memory=True,num_workers=2)
 
 	model = MyModel().to(device)
 	print("{} paramerters in total".format(sum(x.numel() for x in model.parameters())))
