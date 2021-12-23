@@ -24,7 +24,7 @@ class MyModel(nn.Module):
 
     def __init__(self):
         super(MyModel, self).__init__()
-        upscale_factor = 4
+        upscale_factor = 2
 
         # Feature extraction
         self.features = nn.Sequential(

@@ -11,9 +11,9 @@ from torch.nn.parameter import Parameter
 import time
 
 from dataloader import MyDataLoader
-from ESPCN import MyModel
+from FSRCNN import MyModel
 
-name = 'ESPCN'
+name = 'FSRCNNx2'
 
 
 def calc_psnr(img1, img2):
