@@ -11,9 +11,9 @@ from torch.nn.parameter import Parameter
 import time
 
 from dataloader import MyDataLoader
-from FSRCNN import MyModel
+from ESPCN import MyModel
 
-name = 'FSRCNNx2'
+name = 'ESPCNx4'
 
 
 def calc_psnr(img1, img2):
@@ -35,19 +35,33 @@ psnr_func = getPSNRLoss()
 
 def train(model, train_loader, optim, loss_func, epoch, device):
 	model.train()
+	#model = model.half()
+	scaler = torch.cuda.amp.GradScaler()
 	tot_loss = 0.
 	count = 0.
 	for batch_idx, (data, target) in enumerate(train_loader):
 		data, target = data.to(device), target.to(device)
+		#data = data.half()
+		# target = target.half()
 		optim.zero_grad()
-		output = model(data)
-		loss = loss_func(output, target)
-		loss.backward()
-		optim.step()
+		# print(data)
+		with torch.cuda.amp.autocast():
+			output = model(data)
+			#print('before-------')
+			#print(output)
+			loss = loss_func(output, target)
+		
+		scaler.scale(loss).backward()
+		#print(loss.item())
+		scaler.unscale_(optim)
+		nn.utils.clip_grad_norm_(model.parameters(),1)
+		scaler.step(optim)
+		scaler.update()
 		tot_loss += loss.item()*data.size()[0]
 		count += data.size()[0]
 
-		if batch_idx % 100 == 0:
+
+		if batch_idx % 10 == 0:
 			print('Train Epoch: {} [{}/{} ({:.0f}%)] Loss: {:.6f}'.format(epoch, batch_idx * len(data), len(train_loader.dataset),100. * batch_idx / len(train_loader), loss.item()), flush=True)
 		
 	tot_loss /= count
@@ -63,8 +77,12 @@ def test(model, test_loader, loss_func, epoch, device):
 	with torch.no_grad():
 		for batch_idx, (data, target) in enumerate(test_loader):
 			data, target = data.to(device), target.to(device)
-			output = model(data)
-			loss = loss_func(output, target)
+			#data = data.half()
+			#model = model.half()
+			with torch.cuda.amp.autocast():
+				output = model(data)
+			#output = output.float()
+				loss = loss_func(output, target)
 			psnr = psnr_func(output, target)
 			test_loss += loss.item()*data.size()[0]
 			test_psnr += psnr.item()*data.size()[0]
@@ -90,7 +108,7 @@ def main():
 	model = MyModel().to(device)
 	print("{} paramerters in total".format(sum(x.numel() for x in model.parameters())))
 	model = nn.DataParallel(model)
-
+	#model = model.half()
 	optimizer = optim.Adam(model.parameters(), lr = 1e-3)
 	scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma = 0.9)
 	start_epoch = 0
@@ -107,9 +125,10 @@ def main():
 		if test_loss < best_loss:
 			if not os.path.isdir('checkpoints/'):
 				os.mkdir('checkpoints/')
-
+			#save_model = model.half()
 			torch.save(model.state_dict(), './checkpoints/'+str(name)+'_Model')
 			best_loss = test_loss
+			#model = model.float()
 
 if __name__ == '__main__':
   main()

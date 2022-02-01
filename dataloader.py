@@ -35,10 +35,10 @@ class MyDataLoader(Dataset):
 		self.hr_img = self.hr_list[img_idx]
 		self.lr_img = self.lr_list[img_idx]
 
-		hr_patch_size = 96
+		hr_patch_size = 192
 		lr_patch_size = 48
 		img = Image.open(self.hr_img)
-		img = img.resize((960, 540),resample=Image.BICUBIC)
+		img = img.resize((1920, 1080),resample=Image.BICUBIC)
 		img.load()
 		data = np.asarray(img, dtype='int32')
 		data = data/255.0

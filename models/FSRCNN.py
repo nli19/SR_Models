@@ -105,7 +105,11 @@ class MyModel(nn.Module):
 
 #### test
 
-# model = MyModel()
-# ii = torch.randn((2,3,51,51))
-# out = model(ii)
-# print(out.size())
+#model = MyModel()
+#ii = torch.randn((2,3,51,51))
+#model = model.cuda()
+#ii = ii.cuda()
+#model = model.half()
+#ii = ii.half()
+#out = model(ii)
+#print(out)
