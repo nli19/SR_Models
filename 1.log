@@ -1,0 +1,106 @@
+27267 paramerters in total
+Train Epoch: 1 [0/40000 (0%)] Loss: 0.339756
+Train Epoch: 1 Loss: 0.053048
+Test Epoch: 1 Loss: 0.017166
+Test Epoch: 1 PSNR: -19.362182
+Train Epoch: 2 [0/40000 (0%)] Loss: 0.018271
+Train Epoch: 2 Loss: 0.012343
+Test Epoch: 2 Loss: 0.009989
+Test Epoch: 2 PSNR: -21.894188
+Train Epoch: 3 [0/40000 (0%)] Loss: 0.010058
+Train Epoch: 3 Loss: 0.009125
+Test Epoch: 3 Loss: 0.007985
+Test Epoch: 3 PSNR: -22.930126
+Train Epoch: 4 [0/40000 (0%)] Loss: 0.008136
+Train Epoch: 4 Loss: 0.007424
+Test Epoch: 4 Loss: 0.006488
+Test Epoch: 4 PSNR: -24.084397
+Train Epoch: 5 [0/40000 (0%)] Loss: 0.006300
+Train Epoch: 5 Loss: 0.006184
+Test Epoch: 5 Loss: 0.005413
+Test Epoch: 5 PSNR: -25.046045
+Train Epoch: 6 [0/40000 (0%)] Loss: 0.006068
+Train Epoch: 6 Loss: 0.004817
+Test Epoch: 6 Loss: 0.004063
+Test Epoch: 6 PSNR: -26.574007
+Train Epoch: 7 [0/40000 (0%)] Loss: 0.003872
+Train Epoch: 7 Loss: 0.004066
+Test Epoch: 7 Loss: 0.003610
+Test Epoch: 7 PSNR: -27.257611
+Train Epoch: 8 [0/40000 (0%)] Loss: 0.003937
+Train Epoch: 8 Loss: 0.003672
+Test Epoch: 8 Loss: 0.003267
+Test Epoch: 8 PSNR: -27.939888
+Train Epoch: 9 [0/40000 (0%)] Loss: 0.003856
+Train Epoch: 9 Loss: 0.003339
+Test Epoch: 9 Loss: 0.003041
+Test Epoch: 9 PSNR: -28.206013
+Train Epoch: 10 [0/40000 (0%)] Loss: 0.003151
+Train Epoch: 10 Loss: 0.003150
+Test Epoch: 10 Loss: 0.002836
+Test Epoch: 10 PSNR: -28.752313
+Train Epoch: 11 [0/40000 (0%)] Loss: 0.002893
+Train Epoch: 11 Loss: 0.003022
+Test Epoch: 11 Loss: 0.002696
+Test Epoch: 11 PSNR: -29.051919
+Train Epoch: 12 [0/40000 (0%)] Loss: 0.002811
+Train Epoch: 12 Loss: 0.002999
+Test Epoch: 12 Loss: 0.002710
+Test Epoch: 12 PSNR: -28.499314
+Train Epoch: 13 [0/40000 (0%)] Loss: 0.002726
+Train Epoch: 13 Loss: 0.002758
+Test Epoch: 13 Loss: 0.002477
+Test Epoch: 13 PSNR: -29.662600
+Train Epoch: 14 [0/40000 (0%)] Loss: 0.002525
+Train Epoch: 14 Loss: 0.002591
+Test Epoch: 14 Loss: 0.002402
+Test Epoch: 14 PSNR: -29.707233
+Train Epoch: 15 [0/40000 (0%)] Loss: 0.002577
+Train Epoch: 15 Loss: 0.002543
+Test Epoch: 15 Loss: 0.002321
+Test Epoch: 15 PSNR: -29.908788
+Train Epoch: 16 [0/40000 (0%)] Loss: 0.002491
+Train Epoch: 16 Loss: 0.002599
+Test Epoch: 16 Loss: 0.002251
+Test Epoch: 16 PSNR: -30.249045
+Train Epoch: 17 [0/40000 (0%)] Loss: 0.002496
+Train Epoch: 17 Loss: 0.002413
+Test Epoch: 17 Loss: 0.002318
+Test Epoch: 17 PSNR: -29.237651
+Train Epoch: 18 [0/40000 (0%)] Loss: 0.002353
+Train Epoch: 18 Loss: 0.002335
+Test Epoch: 18 Loss: 0.002244
+Test Epoch: 18 PSNR: -29.490906
+Train Epoch: 19 [0/40000 (0%)] Loss: 0.002532
+Train Epoch: 19 Loss: 0.002330
+Test Epoch: 19 Loss: 0.002086
+Test Epoch: 19 PSNR: -30.674169
+Train Epoch: 20 [0/40000 (0%)] Loss: 0.002245
+Train Epoch: 20 Loss: 0.002246
+Test Epoch: 20 Loss: 0.002425
+Test Epoch: 20 PSNR: -28.456031
+Train Epoch: 21 [0/40000 (0%)] Loss: 0.002419
+Train Epoch: 21 Loss: 0.002185
+Test Epoch: 21 Loss: 0.001996
+Test Epoch: 21 PSNR: -31.078614
+Train Epoch: 22 [0/40000 (0%)] Loss: 0.002258
+Train Epoch: 22 Loss: 0.002136
+Test Epoch: 22 Loss: 0.002025
+Test Epoch: 22 PSNR: -30.265384
+Train Epoch: 23 [0/40000 (0%)] Loss: 0.002067
+Train Epoch: 23 Loss: 0.002134
+Test Epoch: 23 Loss: 0.001931
+Test Epoch: 23 PSNR: -31.245828
+Train Epoch: 24 [0/40000 (0%)] Loss: 0.002065
+Train Epoch: 24 Loss: 0.002165
+Test Epoch: 24 Loss: 0.002041
+Test Epoch: 24 PSNR: -29.846772
+Train Epoch: 25 [0/40000 (0%)] Loss: 0.002258
+Train Epoch: 25 Loss: 0.002073
+Test Epoch: 25 Loss: 0.001880
+Test Epoch: 25 PSNR: -31.354826
+Train Epoch: 26 [0/40000 (0%)] Loss: 0.002090
+Train Epoch: 26 Loss: 0.002029
+Test Epoch: 26 Loss: 0.001867
+Test Epoch: 26 PSNR: -31.116652
+Train Epoch: 27 [0/40000 (0%)] Loss: 0.002015
